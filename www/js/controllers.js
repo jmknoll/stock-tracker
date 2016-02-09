@@ -64,7 +64,7 @@ app.controller('MyStocksCtrl', ['$scope',
   ];
 }]);
 
-app.controller('StockCtrl', ['$scope' , '$log', '$stateParams', 'StockDataService', function($scope, $log, $stateParams, StockDataService) {
+app.controller('StockCtrl', ['$scope' , '$log', '$stateParams', 'StockDataService', 'DateService', function($scope, $log, $stateParams, StockDataService, DateService) {
     $scope.ticker = $stateParams.stockTicker;
 
     $scope.$on('$ionicView.afterEnter', function(){
@@ -72,12 +72,12 @@ app.controller('StockCtrl', ['$scope' , '$log', '$stateParams', 'StockDataServic
       getDetailData();
     });
 
-
     function getPriceData() {
       var promise = StockDataService.getPriceData($scope.ticker);
 
       promise.then(function(data){
         $log.info(data);
+        $scope.stockPriceData = data;
       });
     }
 
@@ -86,8 +86,15 @@ app.controller('StockCtrl', ['$scope' , '$log', '$stateParams', 'StockDataServic
 
       promise.then(function(data){
         $log.info(data);
+        $scope.stockDetailData = data;
       });
     }
+
+    $scope.chartView = 1;
+
+    $scope.chartViewFunc = function(input){
+      $scope.chartView = input;
+    };
   
 
 }]);
