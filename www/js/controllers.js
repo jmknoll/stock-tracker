@@ -1,6 +1,10 @@
-angular.module('starter.controllers', [])
+(function(){
 
-.controller('AppCtrl', function($scope, $ionicModal, $timeout) {
+'use strict';
+
+var app = angular.module('stockTracker.controllers', []);
+
+app.controller('AppCtrl', function($scope, $ionicModal, $timeout) {
 
   // With the new view caching in Ionic, Controllers are only called
   // when they are recreated or on app start, instead of every page change.
@@ -22,7 +26,7 @@ angular.module('starter.controllers', [])
   // Triggered in the login modal to close it
   $scope.closeLogin = function() {
     $scope.modal.hide();
-  }
+  };
 
   // Open the login modal
   $scope.login = function() {
@@ -39,18 +43,31 @@ angular.module('starter.controllers', [])
       $scope.closeLogin();
     }, 1000);
   };
-})
-
-.controller('PlaylistsCtrl', function($scope) {
-  $scope.playlists = [
-    { title: 'Reggae', id: 1 },
-    { title: 'Chill', id: 2 },
-    { title: 'Dubstep', id: 3 },
-    { title: 'Indie', id: 4 },
-    { title: 'Rap', id: 5 },
-    { title: 'Cowbell', id: 6 }
-  ];
-})
-
-.controller('PlaylistCtrl', function($scope, $stateParams) {
 });
+
+app.controller('MyStocksCtrl', ['$scope', 
+  function($scope) {
+  
+  $scope.myStocksArray = [
+    {ticker: 'AAPL'},
+    {ticker: 'GPRO'},
+    {ticker: 'FB'},
+    {ticker: 'NFLX'},
+    {ticker: 'TSLA'},
+    {ticker: 'BRK-A'},
+    {ticker: 'INTC'},
+    {ticker: 'MSFT'},
+    {ticker: 'GE'},
+    {ticker: 'BAC'},
+    {ticker: 'C'},
+    {ticker: 'T'},
+  ];
+}]);
+
+app.controller('StockCtrl', ['$scope' , '$stateParams',
+  function($scope, $stateParams) {
+    $scope.ticker = $stateParams.stockTicker;
+
+}]);
+
+})();
